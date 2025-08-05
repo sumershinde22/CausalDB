@@ -34,9 +34,10 @@ else
 fi
 
 echo "🔨 Building benchmark executable..."
+cd ..
 make benchmark
 
-if [ ! -f "./benchmark" ]; then
+if [ ! -f "./build/benchmark" ]; then
     echo "❌ Failed to build benchmark executable"
     exit 1
 fi
@@ -57,7 +58,8 @@ echo "🏃 Running benchmark..."
 echo "======================"
 
 # Run the benchmark
-./benchmark
+cd scripts
+../build/benchmark
 
 echo ""
 echo "📊 Benchmark completed!"
@@ -83,11 +85,11 @@ echo ""
 echo "🎉 Benchmark suite completed!"
 echo ""
 echo "📁 Generated files:"
-echo "  - benchmark_causal.cdb (CausalDB test database)"
-echo "  - benchmark_sqlite.db (SQLite test database)"
+echo "  - data/benchmark_causal.cdb (CausalDB test database)"
+echo "  - data/benchmark_sqlite.db (SQLite test database)"
 if [ "$PYTHON_AVAILABLE" = true ]; then
-    echo "  - performance_report.md (Detailed analysis report)"
-    echo "  - performance_comparison.png (Performance charts)"
+    echo "  - benchmarks/performance_report.md (Detailed analysis report)"
+    echo "  - benchmarks/performance_comparison.png (Performance charts)"
 fi
 echo ""
 echo "💡 To clean up test files, run: make clean" 

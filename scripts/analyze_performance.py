@@ -14,7 +14,7 @@ import json
 def run_benchmark():
     """Run the benchmark and capture output"""
     try:
-        result = subprocess.run(['./benchmark'], capture_output=True, text=True, timeout=60)
+        result = subprocess.run(['../build/benchmark'], capture_output=True, text=True, timeout=60)
         return result.stdout
     except subprocess.TimeoutExpired:
         return "Benchmark timed out"
@@ -109,8 +109,8 @@ def create_performance_charts(metrics):
              transform=ax4.transAxes, ha='center', fontsize=12, fontweight='bold')
     
     plt.tight_layout()
-    plt.savefig('performance_comparison.png', dpi=300, bbox_inches='tight')
-    plt.show()
+    plt.savefig('../benchmarks/performance_comparison.png', dpi=300, bbox_inches='tight')
+    plt.close()
 
 def generate_detailed_report(metrics):
     """Generate a detailed performance report"""
@@ -216,7 +216,7 @@ For causal event tracking applications, CausalDB provides superior performance w
 The trade-off is reduced feature complexity, but for the specific use case of causal event tracking, CausalDB's performance advantages make it the superior choice.
 """
     
-    with open('performance_report.md', 'w') as f:
+    with open('../benchmarks/performance_report.md', 'w') as f:
         f.write(report)
     
     return report
@@ -266,13 +266,13 @@ def main():
     # Create visualizations
     try:
         create_performance_charts(metrics)
-        print("\n📊 Performance charts saved as 'performance_comparison.png'")
+        print("\n📊 Performance charts saved as '../benchmarks/performance_comparison.png'")
     except ImportError:
         print("\n⚠️  matplotlib not available. Install with: pip install matplotlib")
     
     # Generate detailed report
     report = generate_detailed_report(metrics)
-    print("\n📄 Detailed report saved as 'performance_report.md'")
+    print("\n📄 Detailed report saved as '../benchmarks/performance_report.md'")
     
     print("\n" + "="*60)
     print("SUMMARY: CausalDB shows significant performance advantages")

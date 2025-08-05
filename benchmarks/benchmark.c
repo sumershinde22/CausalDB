@@ -6,8 +6,8 @@
 #include <sys/resource.h>
 #include <unistd.h>
 #include <sqlite3.h>
-#include "db.h"
-#include "event.h"
+#include "../include/db.h"
+#include "../include/event.h"
 
 #define BENCHMARK_ITERATIONS 1000
 #define MAX_EVENTS 10000

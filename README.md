@@ -16,19 +16,39 @@ A simple causal event database implemented in C with a modern web frontend. This
 
 ```
 causaldb/
-├── main.c              # Main CLI application
-├── db.c/h              # Database operations
-├── event.c/h           # Event data structures
-├── statement.c/h       # SQL-like statement parsing
-├── repl.c/h            # Read-Eval-Print Loop
-├── frontend/           # Web frontend
-│   ├── index.html      # Main HTML page
-│   ├── styles.css      # Modern CSS styling
-│   └── script.js       # Frontend JavaScript
-├── server/             # HTTP server
-│   ├── server.c        # HTTP server implementation
-│   └── Makefile        # Server build configuration
-└── Makefile            # Main build configuration
+├── src/                    # Core C source files
+│   ├── main.c             # Main CLI application
+│   ├── db.c               # Database operations
+│   ├── event.c            # Event data structures
+│   ├── statement.c        # SQL-like statement parsing
+│   └── repl.c             # Read-Eval-Print Loop
+├── include/               # Header files
+│   ├── db.h               # Database interface
+│   ├── event.h            # Event structures
+│   ├── statement.h        # Statement parsing interface
+│   └── repl.h             # REPL interface
+├── build/                 # Build artifacts and executables
+├── frontend/              # Web frontend
+│   ├── index.html         # Main HTML page
+│   ├── styles.css         # Modern CSS styling
+│   └── script.js          # Frontend JavaScript
+├── server/                # HTTP server
+│   ├── server.c           # HTTP server implementation
+│   └── Makefile           # Server build configuration
+├── benchmarks/            # Benchmarking tools and results
+│   ├── benchmark.c        # Performance benchmark
+│   ├── BENCHMARK_README.md # Benchmark documentation
+│   ├── BENCHMARK_RESULTS.md # Benchmark results
+│   ├── performance_report.md # Performance analysis
+│   └── performance_comparison.png # Performance charts
+├── scripts/               # Shell scripts and utilities
+│   ├── run_benchmark.sh   # Benchmark runner
+│   ├── analyze_performance.py # Performance analysis
+│   └── test_api.sh        # API testing script
+├── data/                  # Database files
+├── docs/                  # Documentation
+├── Makefile               # Main build configuration
+└── README.md              # This file
 ```
 
 ## Quick Start
@@ -59,7 +79,7 @@ The frontend will be available at: http://localhost:8080
 
 ```bash
 # Run the command-line interface
-./causaldb
+./build/causaldb
 ```
 
 ## Usage

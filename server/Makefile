@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
-SERVER_OBJS = server.o ../db.o ../event.o ../statement.o
+CFLAGS = -Wall -Wextra -std=c99 -I../include
+SERVER_OBJS = server.o ../build/db.o ../build/event.o ../build/statement.o
 
 server: $(SERVER_OBJS)
 	$(CC) $(CFLAGS) -o server $(SERVER_OBJS)
@@ -8,16 +8,19 @@ server: $(SERVER_OBJS)
 server.o: server.c
 	$(CC) $(CFLAGS) -c server.c
 
-../db.o: ../db.c ../db.h
-	$(CC) $(CFLAGS) -c ../db.c -o ../db.o
+../build/db.o: ../src/db.c ../include/db.h
+	@mkdir -p ../build
+	$(CC) $(CFLAGS) -c ../src/db.c -o ../build/db.o
 
-../event.o: ../event.c ../event.h
-	$(CC) $(CFLAGS) -c ../event.c -o ../event.o
+../build/event.o: ../src/event.c ../include/event.h
+	@mkdir -p ../build
+	$(CC) $(CFLAGS) -c ../src/event.c -o ../build/event.o
 
-../statement.o: ../statement.c ../statement.h
-	$(CC) $(CFLAGS) -c ../statement.c -o ../statement.o
+../build/statement.o: ../src/statement.c ../include/statement.h
+	@mkdir -p ../build
+	$(CC) $(CFLAGS) -c ../src/statement.c -o ../build/statement.o
 
 clean:
-	rm -f *.o server ../*.o
+	rm -f *.o server
 
 .PHONY: clean 

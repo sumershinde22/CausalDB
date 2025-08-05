@@ -8,9 +8,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
-#include "../event.h"
-#include "../db.h"
-#include "../statement.h"
+#include "../include/event.h"
+#include "../include/db.h"
+#include "../include/statement.h"
 
 #define PORT 8080
 #define BUFFER_SIZE 16384  // Increased from 4096 to 16KB

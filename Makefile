@@ -1,17 +1,33 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -std=c99
+CFLAGS=-Wall -Wextra -std=c99 -Iinclude
 LIBS=-lsqlite3
 
-all: causaldb
+# Source and build directories
+SRCDIR=src
+BUILDDIR=build
+INCLUDEDIR=include
 
-causaldb: main.c db.c event.c statement.c repl.c
-	$(CC) $(CFLAGS) -o causaldb main.c db.c event.c statement.c repl.c
+# Source files
+SOURCES=$(wildcard $(SRCDIR)/*.c)
+OBJECTS=$(SOURCES:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
 
-benchmark: benchmark.c db.c event.c
-	$(CC) $(CFLAGS) -o benchmark benchmark.c db.c event.c $(LIBS)
+all: $(BUILDDIR)/causaldb
+
+$(BUILDDIR)/causaldb: $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(BUILDDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(BUILDDIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+benchmark: $(BUILDDIR)/benchmark
+
+$(BUILDDIR)/benchmark: benchmarks/benchmark.c $(SRCDIR)/db.c $(SRCDIR)/event.c
+	@mkdir -p $(BUILDDIR)
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	rm -f causaldb benchmark *.o *.cdb *.db
+	rm -rf $(BUILDDIR)/*
 	cd server && make clean
 
 .PHONY: all clean benchmark
