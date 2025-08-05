@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CausalDB - Event Database</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header-content">
+          <h1><i class="fas fa-database"></i> CausalDB</h1>
+          <p>A causal event database with relationship tracking</p>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <div class="sidebar">
+          <div class="sidebar-section">
+            <h3><i class="fas fa-plus-circle"></i> Add Event</h3>
+            <form id="addEventForm" class="form">
+              <div class="form-group">
+                <label for="eventId">Event ID</label>
+                <input
+                  type="number"
+                  id="eventId"
+                  name="eventId"
+                  required
+                  min="1"
+                />
+              </div>
+              <div class="form-group">
+                <label for="eventData">Event Data</label>
+                <textarea
+                  id="eventData"
+                  name="eventData"
+                  required
+                  placeholder="Enter event description..."
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="parentIds">Parent Event IDs (optional)</label>
+                <input
+                  type="text"
+                  id="parentIds"
+                  name="parentIds"
+                  placeholder="1 2 3 (space separated)"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add Event
+              </button>
+            </form>
+          </div>
+
+          <div class="sidebar-section">
+            <h3><i class="fas fa-search"></i> Search Event</h3>
+            <form id="searchForm" class="form">
+              <div class="form-group">
+                <label for="searchId">Event ID</label>
+                <input
+                  type="number"
+                  id="searchId"
+                  name="searchId"
+                  required
+                  min="1"
+                />
+              </div>
+              <button type="submit" class="btn btn-secondary">
+                <i class="fas fa-search"></i> Search
+              </button>
+            </form>
+          </div>
+
+          <div class="sidebar-section">
+            <h3><i class="fas fa-cog"></i> Actions</h3>
+            <button id="refreshBtn" class="btn btn-outline">
+              <i class="fas fa-sync-alt"></i> Refresh All
+            </button>
+            <button id="exportBtn" class="btn btn-outline">
+              <i class="fas fa-download"></i> Export Data
+            </button>
+          </div>
+        </div>
+
+        <div class="content">
+          <div class="content-header">
+            <h2><i class="fas fa-list"></i> Events</h2>
+            <div class="stats">
+              <span class="stat">
+                <i class="fas fa-database"></i>
+                <span id="totalEvents">0</span> events
+              </span>
+              <span class="stat">
+                <i class="fas fa-project-diagram"></i>
+                <span id="totalRelationships">0</span> relationships
+              </span>
+            </div>
+          </div>
+
+          <div class="events-container">
+            <div id="eventsList" class="events-list">
+              <!-- Events will be populated here -->
+            </div>
+          </div>
+
+          <div class="visualization-section">
+            <h3><i class="fas fa-sitemap"></i> Causal Graph</h3>
+            <div id="graphContainer" class="graph-container">
+              <!-- Graph visualization will be here -->
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal for event details -->
+    <div id="eventModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Event Details</h2>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
